@@ -35,6 +35,5 @@ describe('POST /auth/authenticate', () => {
     // then
     expect(status).toBe(200);
     expect(body.accessToken).toBeDefined();
-    console.log(body);
   });
 });

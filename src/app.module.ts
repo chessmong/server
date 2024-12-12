@@ -4,6 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { globalPipe } from './common/pipe/global.pipe';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthModule } from './auth/auth.module';
+import { LectureModule } from './lecture/lecture.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { AuthModule } from './auth/auth.module';
       global: true,
     }),
     AuthModule,
+    LectureModule,
   ],
   providers: [globalPipe],
 })
