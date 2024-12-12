@@ -10,6 +10,7 @@ datasource db {
 model Lecture {
   link        String   @id
   title       String
-  description String
-  date        DateTime
+  image       String
+  channelName String
+  publishedAt DateTime
 }
