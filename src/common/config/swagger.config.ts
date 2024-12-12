@@ -6,7 +6,5 @@ export function setupSwagger(app: INestApplication) {
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document, {
-    explorer: true,
-  });
+  SwaggerModule.setup('api', app, document);
 }

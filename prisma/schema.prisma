@@ -6,3 +6,10 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Lecture {
+  link        String   @id
+  title       String
+  description String
+  date        DateTime
+}
