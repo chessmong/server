@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
+import { globalPipe } from './common/pipe/global.pipe';
 
 @Module({
   imports: [
@@ -11,5 +12,6 @@ import { ConfigModule } from '@nestjs/config';
       cache: true,
     }),
   ],
+  providers: [globalPipe],
 })
 export class AppModule {}
