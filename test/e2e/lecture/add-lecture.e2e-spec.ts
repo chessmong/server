@@ -26,7 +26,7 @@ describe('POST /lectures/check', () => {
     accessToken = body.accessToken;
   });
 
-  afterAll(async () => {
+  afterEach(async () => {
     await prisma.lecture.deleteMany();
   });
 

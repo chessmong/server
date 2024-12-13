@@ -25,6 +25,10 @@ export class LectureRepository {
     ]);
     return;
   }
+
+  async findOne(link: string) {
+    return this.prisma.lecture.findUnique({ where: { link } });
+  }
 }
 
 export type CreateInput = {

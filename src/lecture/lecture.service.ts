@@ -9,6 +9,21 @@ export class LectureService {
     private configService: ConfigService,
   ) {}
 
+  async check(link: string) {
+    const parsedLink = this.parseLink(link);
+    await this.getLectureInfo(parsedLink);
+    const lecture = await this.lectureRepository.findOne(parsedLink);
+    if (lecture) {
+      throw new HttpException('이미 등록된 강의입니다.', 409);
+    }
+  }
+
+  parseLink(link: string) {
+    const parsedUrl = new URL(link);
+    const videoId = parsedUrl.searchParams.get('v');
+    return `https://www.youtube.com/watch?v=${videoId}`;
+  }
+
   async getLectureInfo(link: string) {
     const apiUrl = 'https://www.googleapis.com/youtube/v3/videos';
     const apiKey = this.configService.get<string>('YOUTUBE_API_KEY');
@@ -27,10 +42,9 @@ export class LectureService {
 
   async addLecture(lecture: { link: string; positions: string[] }) {
     const youtubeItem = await this.getLectureInfo(lecture.link);
-    const partedUrl = new URL(lecture.link);
-    const videoId = partedUrl.searchParams.get('v');
+
     await this.lectureRepository.create({
-      link: `https://www.youtube.com/watch?v=${videoId}`,
+      link: this.parseLink(lecture.link),
       title: youtubeItem.snippet.title,
       image: youtubeItem.snippet.thumbnails.high.url,
       channelName: youtubeItem.snippet.channelTitle,

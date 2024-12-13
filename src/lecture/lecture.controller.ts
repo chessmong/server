@@ -23,10 +23,14 @@ export class LectureController {
     status: 200,
     description: '성공 - 따로 response body는 없습니다',
   })
+  @ApiResponse({
+    status: 409,
+    description: '이미 등록된 강의',
+  })
   @Post('check')
   @HttpCode(200)
   async check(@Body() { link }: CheckDto) {
-    await this.lectureService.getLectureInfo(link);
+    await this.lectureService.check(link);
     return;
   }
 

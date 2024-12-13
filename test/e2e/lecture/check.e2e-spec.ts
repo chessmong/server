@@ -2,10 +2,12 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from 'src/app.module';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 describe('POST /lectures/check', () => {
   let app: INestApplication;
   let accessToken: string;
+  let prisma: PrismaService;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -13,6 +15,7 @@ describe('POST /lectures/check', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
+    prisma = moduleFixture.get<PrismaService>(PrismaService);
 
     await app.init();
 
@@ -21,6 +24,10 @@ describe('POST /lectures/check', () => {
       .send({ code: 'test' });
 
     accessToken = body.accessToken;
+  });
+
+  afterEach(async () => {
+    await prisma.lecture.deleteMany();
   });
 
   it('유효하지 않은 링크를 보내면 400 에러를 반환한다', async () => {
@@ -54,5 +61,27 @@ describe('POST /lectures/check', () => {
 
     // then
     expect(status).toBe(400);
+  });
+
+  it('이미 등록된 강의라면 409를 반환한다', async () => {
+    // given
+    await prisma.lecture.create({
+      data: {
+        link: 'https://www.youtube.com/watch?v=aja66pP69b0',
+        title: 'test',
+        image: 'test',
+        channelName: 'test',
+        publishedAt: new Date(),
+      },
+    });
+
+    // when
+    const { status } = await request(app.getHttpServer())
+      .post('/lectures/check')
+      .set('Authorization', `Bearer ${accessToken}`)
+      .send({ link: 'https://www.youtube.com/watch?v=aja66pP69b0' });
+
+    // then
+    expect(status).toBe(409);
   });
 });
