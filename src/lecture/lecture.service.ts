@@ -9,10 +9,11 @@ export class LectureService {
     private configService: ConfigService,
   ) {}
 
-  async check(link: string) {
+  async getLectureInfo(link: string) {
     const apiUrl = 'https://www.googleapis.com/youtube/v3/videos';
     const apiKey = this.configService.get<string>('YOUTUBE_API_KEY');
-    const videoId = link.split('v=')[1];
+    const parsedUrl = new URL(link);
+    const videoId = parsedUrl.searchParams.get('v');
     const param = `?part=snippet` + `&id=${videoId}` + `&key=${apiKey}`;
 
     const response = await fetch(apiUrl + param);
@@ -21,6 +22,21 @@ export class LectureService {
     if (response.status !== 200 || data.items.length === 0) {
       throw new HttpException('유효하지 않은 링크입니다.', 400);
     }
+    return data.items[0];
+  }
+
+  async addLecture(lecture: { link: string; positions: string[] }) {
+    const youtubeItem = await this.getLectureInfo(lecture.link);
+    const partedUrl = new URL(lecture.link);
+    const videoId = partedUrl.searchParams.get('v');
+    await this.lectureRepository.create({
+      link: `https://www.youtube.com/watch?v=${videoId}`,
+      title: youtubeItem.snippet.title,
+      image: youtubeItem.snippet.thumbnails.high.url,
+      channelName: youtubeItem.snippet.channelTitle,
+      publishedAt: youtubeItem.snippet.publishedAt,
+      positions: lecture.positions,
+    });
     return;
   }
 }

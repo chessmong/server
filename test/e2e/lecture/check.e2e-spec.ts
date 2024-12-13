@@ -5,6 +5,7 @@ import { AppModule } from 'src/app.module';
 
 describe('POST /lectures/check', () => {
   let app: INestApplication;
+  let accessToken: string;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -14,12 +15,19 @@ describe('POST /lectures/check', () => {
     app = moduleFixture.createNestApplication();
 
     await app.init();
+
+    const { body } = await request(app.getHttpServer())
+      .post('/auth/authenticate')
+      .send({ code: 'test' });
+
+    accessToken = body.accessToken;
   });
 
   it('유효하지 않은 링크를 보내면 400 에러를 반환한다', async () => {
     // when
     const { status } = await request(app.getHttpServer())
       .post('/lectures/check')
+      .set('Authorization', `Bearer ${accessToken}`)
       .send({ link: 'invalid' });
 
     // then
@@ -30,6 +38,7 @@ describe('POST /lectures/check', () => {
     // when
     const { status } = await request(app.getHttpServer())
       .post('/lectures/check')
+      .set('Authorization', `Bearer ${accessToken}`)
       .send({ link: 'https://www.youtube.com/watch?v=aja66pP69b0' });
 
     // then
@@ -40,6 +49,7 @@ describe('POST /lectures/check', () => {
     // when
     const { status } = await request(app.getHttpServer())
       .post('/lectures/check')
+      .set('Authorization', `Bearer ${accessToken}`)
       .send({ link: 'https://www.google.com' });
 
     // then
