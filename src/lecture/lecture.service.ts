@@ -53,6 +53,10 @@ export class LectureService {
     });
     return;
   }
+
+  async getLectures(fen: string) {
+    return this.lectureRepository.findManyByFen(fen);
+  }
 }
 
 export type YoutubeResponse = {

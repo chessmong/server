@@ -1,23 +1,32 @@
-import { Controller, Post, Body, HttpCode, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  HttpCode,
+  UseGuards,
+  Get,
+  Query,
+} from '@nestjs/common';
 import {
   ApiTags,
   ApiOperation,
   ApiResponse,
   ApiBearerAuth,
+  ApiQuery,
 } from '@nestjs/swagger';
 import { LectureService } from './lecture.service';
-import { CheckDto, CreateLectureDto } from './dto/request';
+import { CheckDto, CreateLectureDto, GetLectureDto } from './dto/request';
+import { LectureDto } from './dto/response';
 import { JwtGuard } from 'src/common/guard';
 
 @ApiTags('/lectures')
-@ApiBearerAuth()
 @ApiResponse({ status: 401, description: 'Unauthorized' })
 @ApiResponse({ status: 400, description: '유효성 검사 실패' })
-@UseGuards(JwtGuard)
 @Controller('lectures')
 export class LectureController {
   constructor(private lectureService: LectureService) {}
 
+  @ApiBearerAuth()
   @ApiOperation({ summary: '유튜브 링크 유효성 검사' })
   @ApiResponse({
     status: 200,
@@ -27,6 +36,7 @@ export class LectureController {
     status: 409,
     description: '이미 등록된 강의',
   })
+  @UseGuards(JwtGuard)
   @Post('check')
   @HttpCode(200)
   async check(@Body() { link }: CheckDto) {
@@ -34,14 +44,29 @@ export class LectureController {
     return;
   }
 
+  @ApiBearerAuth()
   @ApiOperation({ summary: '강의 추가' })
   @ApiResponse({
     status: 201,
     description: '성공',
   })
+  @UseGuards(JwtGuard)
   @Post()
   async addLecture(@Body() lecture: CreateLectureDto) {
     await this.lectureService.addLecture(lecture);
     return;
+  }
+
+  @ApiOperation({ summary: '강의 목록 조회' })
+  @ApiQuery({ name: 'fen', type: String })
+  @ApiResponse({
+    status: 200,
+    description: '성공 - 업로드 날짜 최신순 정렬',
+    type: LectureDto,
+    isArray: true,
+  })
+  @Get()
+  async getLectures(@Query() { fen }: GetLectureDto): Promise<LectureDto[]> {
+    return this.lectureService.getLectures(fen);
   }
 }

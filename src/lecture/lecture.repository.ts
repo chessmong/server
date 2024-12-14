@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { Lecture } from '@prisma/client';
 
 @Injectable()
 export class LectureRepository {
@@ -28,6 +29,21 @@ export class LectureRepository {
 
   async findOne(link: string) {
     return this.prisma.lecture.findUnique({ where: { link } });
+  }
+
+  async findManyByFen(fen: string) {
+    return (await this.prisma.$queryRaw`
+      select
+        l.link,
+        l.title,
+        l.image,
+        l."channelName",
+        l."publishedAt"
+      from "Lecture" l
+      join "Position" p on l.link = p.link
+      where p.fen = ${fen}
+      order by l."publishedAt" desc
+    `) as Lecture[];
   }
 }
 
