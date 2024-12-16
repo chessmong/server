@@ -49,13 +49,17 @@ export class LectureService {
       image: youtubeItem.snippet.thumbnails.high.url,
       channelName: youtubeItem.snippet.channelTitle,
       publishedAt: youtubeItem.snippet.publishedAt,
-      positions: lecture.positions,
+      positions: lecture.positions.map((position) => {
+        const [board, turn] = position.split(' ');
+        return `${board} ${turn}`;
+      }),
     });
     return;
   }
 
   async getLectures(fen: string) {
-    return this.lectureRepository.findManyByFen(fen);
+    const [board, turn] = fen.split(' ');
+    return this.lectureRepository.findManyByFen(`${board} ${turn}`);
   }
 }
 

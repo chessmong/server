@@ -48,7 +48,11 @@ describe('POST /lectures/check', () => {
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         link: 'https://www.youtube.com/watch?v=FQaweORBKII&list=LL&index=9&t=177s',
-        positions: ['test1', 'test2', 'test3'],
+        positions: [
+          'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1',
+          'rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq e6 0 2',
+          'rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2',
+        ],
       });
 
     // then
@@ -65,9 +69,18 @@ describe('POST /lectures/check', () => {
 
     const positions = await prisma.position.findMany();
     expect(positions).toEqual([
-      { link: 'https://www.youtube.com/watch?v=FQaweORBKII', fen: 'test1' },
-      { link: 'https://www.youtube.com/watch?v=FQaweORBKII', fen: 'test2' },
-      { link: 'https://www.youtube.com/watch?v=FQaweORBKII', fen: 'test3' },
+      {
+        link: 'https://www.youtube.com/watch?v=FQaweORBKII',
+        fen: 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b',
+      },
+      {
+        link: 'https://www.youtube.com/watch?v=FQaweORBKII',
+        fen: 'rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w',
+      },
+      {
+        link: 'https://www.youtube.com/watch?v=FQaweORBKII',
+        fen: 'rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b',
+      },
     ]);
   });
 });
