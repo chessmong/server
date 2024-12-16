@@ -43,16 +43,19 @@ export class LectureService {
   async addLecture(lecture: { link: string; positions: string[] }) {
     const youtubeItem = await this.getLectureInfo(lecture.link);
 
+    const set = new Set<string>();
+    for (const position of lecture.positions) {
+      const [board, turn] = position.split(' ');
+      set.add(`${board} ${turn}`);
+    }
+
     await this.lectureRepository.create({
       link: this.parseLink(lecture.link),
       title: youtubeItem.snippet.title,
       image: youtubeItem.snippet.thumbnails.high.url,
       channelName: youtubeItem.snippet.channelTitle,
       publishedAt: youtubeItem.snippet.publishedAt,
-      positions: lecture.positions.map((position) => {
-        const [board, turn] = position.split(' ');
-        return `${board} ${turn}`;
-      }),
+      positions: Array.from(set),
     });
     return;
   }
