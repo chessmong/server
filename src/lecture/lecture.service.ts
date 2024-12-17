@@ -52,7 +52,7 @@ export class LectureService {
     await this.lectureRepository.create({
       link: this.parseLink(lecture.link),
       title: youtubeItem.snippet.title,
-      image: youtubeItem.snippet.thumbnails.high.url,
+      image: youtubeItem.snippet.thumbnails.maxres.url,
       channelName: youtubeItem.snippet.channelTitle,
       publishedAt: youtubeItem.snippet.publishedAt,
       positions: Array.from(set),

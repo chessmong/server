@@ -62,7 +62,7 @@ describe('POST /lectures/check', () => {
       link: 'https://www.youtube.com/watch?v=FQaweORBKII',
       title:
         '함정이 너무 많다! 꼼수오프닝 끝판왕 "스태포드 갬빗 Stafford Gambit"',
-      image: 'https://i.ytimg.com/vi/FQaweORBKII/hqdefault.jpg',
+      image: 'https://i.ytimg.com/vi/FQaweORBKII/maxresdefault.jpg',
       channelName: '체스프릭김창훈',
       publishedAt: expect.any(Date),
     });
