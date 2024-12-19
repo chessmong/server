@@ -10,26 +10,35 @@ export class LectureService {
   ) {}
 
   async check(link: string) {
-    const parsedLink = this.parseLink(link);
-    await this.getLectureInfo(parsedLink);
-    const lecture = await this.lectureRepository.findOne(parsedLink);
+    const id = this.parseId(link);
+    await this.getLectureInfo(id);
+    const lecture = await this.lectureRepository.findOne(id);
     if (lecture) {
       throw new HttpException('이미 등록된 강의입니다.', 409);
     }
   }
 
-  parseLink(link: string) {
+  parseId(link: string) {
     const parsedUrl = new URL(link);
-    const videoId = parsedUrl.searchParams.get('v');
-    return `https://www.youtube.com/watch?v=${videoId}`;
+    const id = parsedUrl.searchParams.get('v');
+    if (!id) {
+      throw new HttpException('유효하지 않은 링크입니다.', 400);
+    }
+    return id;
   }
 
-  async getLectureInfo(link: string) {
+  createLink(id: string) {
+    return `https://www.youtube.com/watch?v=${id}`;
+  }
+
+  createThumbnail(id: string) {
+    return `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
+  }
+
+  async getLectureInfo(id: string) {
     const apiUrl = 'https://www.googleapis.com/youtube/v3/videos';
     const apiKey = this.configService.get<string>('YOUTUBE_API_KEY');
-    const parsedUrl = new URL(link);
-    const videoId = parsedUrl.searchParams.get('v');
-    const param = `?part=snippet` + `&id=${videoId}` + `&key=${apiKey}`;
+    const param = `?part=snippet` + `&id=${id}` + `&key=${apiKey}`;
 
     const response = await fetch(apiUrl + param);
     const data = (await response.json()) as YoutubeResponse;
@@ -41,7 +50,8 @@ export class LectureService {
   }
 
   async addLecture(lecture: { link: string; positions: string[] }) {
-    const youtubeItem = await this.getLectureInfo(lecture.link);
+    const id = this.parseId(lecture.link);
+    const youtubeItem = await this.getLectureInfo(id);
 
     const set = new Set<string>();
     for (const position of lecture.positions) {
@@ -50,9 +60,8 @@ export class LectureService {
     }
 
     await this.lectureRepository.create({
-      link: this.parseLink(lecture.link),
+      id: id,
       title: youtubeItem.snippet.title,
-      image: youtubeItem.snippet.thumbnails.maxres.url,
       channelName: youtubeItem.snippet.channelTitle,
       publishedAt: youtubeItem.snippet.publishedAt,
       positions: Array.from(set),
@@ -62,7 +71,18 @@ export class LectureService {
 
   async getLectures(fen: string) {
     const [board, turn] = fen.split(' ');
-    return this.lectureRepository.findManyByFen(`${board} ${turn}`);
+    const lectures = await this.lectureRepository.findManyByFen(
+      `${board} ${turn}`,
+    );
+    return lectures.map((lecture) => {
+      return {
+        link: this.createLink(lecture.id),
+        title: lecture.title,
+        channelName: lecture.channelName,
+        image: this.createThumbnail(lecture.id),
+        publishedAt: lecture.publishedAt,
+      };
+    });
   }
 }
 

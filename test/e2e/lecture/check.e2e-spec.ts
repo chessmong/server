@@ -67,9 +67,8 @@ describe('POST /lectures/check', () => {
     // given
     await prisma.lecture.create({
       data: {
-        link: 'https://www.youtube.com/watch?v=aja66pP69b0',
+        id: 'aja66pP69b0',
         title: 'test',
-        image: 'test',
         channelName: 'test',
         publishedAt: new Date(),
       },

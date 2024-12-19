@@ -8,20 +8,21 @@ datasource db {
 }
 
 model Lecture {
-  link        String     @id
+  id          String     @id
   title       String
-  image       String
   channelName String
   publishedAt DateTime
   Position    Position[]
+
+  @@index([publishedAt(sort: Desc)])
 }
 
 model Position {
-  link String
-  fen  String
+  id  String
+  fen String
 
-  lecture Lecture @relation(fields: [link], references: [link], onDelete: Cascade)
+  lecture Lecture @relation(fields: [id], references: [id], onDelete: Cascade)
 
-  @@id([link, fen])
+  @@id([id, fen])
   @@index([fen])
 }

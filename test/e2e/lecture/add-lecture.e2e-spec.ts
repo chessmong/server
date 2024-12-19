@@ -59,10 +59,9 @@ describe('POST /lectures/check', () => {
     expect(status).toBe(201);
     const lecture = await prisma.lecture.findFirst();
     expect(lecture).toEqual({
-      link: 'https://www.youtube.com/watch?v=FQaweORBKII',
+      id: 'FQaweORBKII',
       title:
         '함정이 너무 많다! 꼼수오프닝 끝판왕 "스태포드 갬빗 Stafford Gambit"',
-      image: 'https://i.ytimg.com/vi/FQaweORBKII/maxresdefault.jpg',
       channelName: '체스프릭김창훈',
       publishedAt: expect.any(Date),
     });
@@ -70,15 +69,15 @@ describe('POST /lectures/check', () => {
     const positions = await prisma.position.findMany();
     expect(positions).toEqual([
       {
-        link: 'https://www.youtube.com/watch?v=FQaweORBKII',
+        id: 'FQaweORBKII',
         fen: 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b',
       },
       {
-        link: 'https://www.youtube.com/watch?v=FQaweORBKII',
+        id: 'FQaweORBKII',
         fen: 'rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w',
       },
       {
-        link: 'https://www.youtube.com/watch?v=FQaweORBKII',
+        id: 'FQaweORBKII',
         fen: 'rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b',
       },
     ]);

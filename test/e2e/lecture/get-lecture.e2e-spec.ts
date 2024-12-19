@@ -47,16 +47,14 @@ describe('GET /lectures', () => {
     await prisma.lecture.createMany({
       data: [
         {
-          link: 'test1',
+          id: 'test1',
           title: 'test1',
-          image: 'test1',
           channelName: 'test1',
           publishedAt: new Date(),
         },
         {
-          link: 'test2',
+          id: 'test2',
           title: 'test2',
-          image: 'test2',
           channelName: 'test2',
           publishedAt: new Date(),
         },
@@ -66,11 +64,11 @@ describe('GET /lectures', () => {
     await prisma.position.createMany({
       data: [
         {
-          link: 'test1',
+          id: 'test1',
           fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w',
         },
         {
-          link: 'test2',
+          id: 'test2',
           fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w',
         },
       ],
@@ -85,16 +83,16 @@ describe('GET /lectures', () => {
     expect(status).toBe(200);
     expect(body).toEqual([
       {
-        link: 'test1',
+        link: 'https://www.youtube.com/watch?v=test1',
         title: 'test1',
-        image: 'test1',
         channelName: 'test1',
+        image: 'https://img.youtube.com/vi/test1/maxresdefault.jpg',
         publishedAt: expect.any(String),
       },
       {
-        link: 'test2',
+        link: 'https://www.youtube.com/watch?v=test2',
         title: 'test2',
-        image: 'test2',
+        image: 'https://img.youtube.com/vi/test2/maxresdefault.jpg',
         channelName: 'test2',
         publishedAt: expect.any(String),
       },

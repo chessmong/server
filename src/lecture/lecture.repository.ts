@@ -10,16 +10,15 @@ export class LectureRepository {
     await this.prisma.$transaction([
       this.prisma.lecture.create({
         data: {
-          link: createInput.link,
+          id: createInput.id,
           title: createInput.title,
-          image: createInput.image,
           channelName: createInput.channelName,
           publishedAt: createInput.publishedAt,
         },
       }),
       this.prisma.position.createMany({
         data: createInput.positions.map((position) => ({
-          link: createInput.link,
+          id: createInput.id,
           fen: position,
         })),
       }),
@@ -27,20 +26,19 @@ export class LectureRepository {
     return;
   }
 
-  async findOne(link: string) {
-    return this.prisma.lecture.findUnique({ where: { link } });
+  async findOne(id: string) {
+    return this.prisma.lecture.findUnique({ where: { id } });
   }
 
   async findManyByFen(fen: string) {
     return (await this.prisma.$queryRaw`
       select
-        l.link,
+        l.id,
         l.title,
-        l.image,
         l."channelName",
         l."publishedAt"
       from "Lecture" l
-      join "Position" p on l.link = p.link
+      join "Position" p on l.id = p.id
       where p.fen = ${fen}
       order by l."publishedAt" desc
     `) as Lecture[];
@@ -48,9 +46,8 @@ export class LectureRepository {
 }
 
 export type CreateInput = {
-  link: string;
+  id: string;
   title: string;
-  image: string;
   channelName: string;
   publishedAt: Date;
   positions: string[];
