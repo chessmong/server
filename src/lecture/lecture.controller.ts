@@ -58,6 +58,13 @@ export class LectureController {
   }
 
   @ApiOperation({ summary: '강의 목록 조회' })
+  @ApiQuery({
+    name: 'channelNames',
+    type: String,
+    required: false,
+    description:
+      '전체면 비워두시고 체스프릭김창훈 또는 체스프릭김창훈,슥슥이 이렇게 콤마로 구분',
+  })
   @ApiQuery({ name: 'fen', type: String })
   @ApiResponse({
     status: 200,
@@ -66,7 +73,12 @@ export class LectureController {
     isArray: true,
   })
   @Get()
-  async getLectures(@Query() { fen }: GetLectureDto): Promise<LectureDto[]> {
+  async getLectures(
+    @Query() { fen, channelNames }: GetLectureDto,
+  ): Promise<LectureDto[]> {
+    if (channelNames) {
+      return this.lectureService.getLecturesByChannelNames(fen, channelNames);
+    }
     return this.lectureService.getLectures(fen);
   }
 }

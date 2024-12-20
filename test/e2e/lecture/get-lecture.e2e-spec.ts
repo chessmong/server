@@ -98,4 +98,61 @@ describe('GET /lectures', () => {
       },
     ]);
   });
+
+  it('channelNames를 보내면 해당 채널의 강의 목록을 반환한다', async () => {
+    // given
+    await prisma.lecture.createMany({
+      data: [
+        {
+          id: 'test1',
+          title: 'test1',
+          channelName: '체스프릭김창훈',
+          publishedAt: new Date(),
+        },
+        {
+          id: 'test2',
+          title: 'test2',
+          channelName: '슥슥이',
+          publishedAt: new Date(),
+        },
+      ],
+    });
+
+    await prisma.position.createMany({
+      data: [
+        {
+          id: 'test1',
+          fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w',
+        },
+        {
+          id: 'test2',
+          fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w',
+        },
+      ],
+    });
+
+    // when
+    const { status, body } = await request(app.getHttpServer()).get(
+      '/lectures?fen=rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1&channelNames=체스프릭김창훈,슥슥이',
+    );
+
+    // then
+    expect(status).toBe(200);
+    expect(body).toEqual([
+      {
+        link: 'https://www.youtube.com/watch?v=test1',
+        title: 'test1',
+        channelName: '체스프릭김창훈',
+        image: 'https://img.youtube.com/vi/test1/maxresdefault.jpg',
+        publishedAt: expect.any(String),
+      },
+      {
+        link: 'https://www.youtube.com/watch?v=test2',
+        title: 'test2',
+        image: 'https://img.youtube.com/vi/test2/maxresdefault.jpg',
+        channelName: '슥슥이',
+        publishedAt: expect.any(String),
+      },
+    ]);
+  });
 });

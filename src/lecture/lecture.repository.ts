@@ -43,6 +43,21 @@ export class LectureRepository {
       order by l."publishedAt" desc
     `) as Lecture[];
   }
+
+  async findManyByFenAndNames(fen: string, names: string[]) {
+    return (await this.prisma.$queryRaw`
+      select
+        l.id,
+        l.title,
+        l."channelName",
+        l."publishedAt"
+      from "Lecture" l
+      join "Position" p on l.id = p.id
+      where p.fen = ${fen}
+      and l."channelName" = any(${names})
+      order by l."publishedAt" desc
+    `) as Lecture[];
+  }
 }
 
 export type CreateInput = {

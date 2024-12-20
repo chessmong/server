@@ -84,6 +84,24 @@ export class LectureService {
       };
     });
   }
+
+  async getLecturesByChannelNames(fen: string, channelName: string) {
+    const [board, turn] = fen.split(' ');
+    const names = channelName.split(',');
+    const lectures = await this.lectureRepository.findManyByFenAndNames(
+      `${board} ${turn}`,
+      names,
+    );
+    return lectures.map((lecture) => {
+      return {
+        link: this.createLink(lecture.id),
+        title: lecture.title,
+        channelName: lecture.channelName,
+        image: this.createThumbnail(lecture.id),
+        publishedAt: lecture.publishedAt,
+      };
+    });
+  }
 }
 
 export type YoutubeResponse = {
