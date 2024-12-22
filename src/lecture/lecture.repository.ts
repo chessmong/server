@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { Lecture } from '@prisma/client';
+import { Lecture, Prisma } from '@prisma/client';
 
 @Injectable()
 export class LectureRepository {
@@ -57,6 +57,20 @@ export class LectureRepository {
       and l."channelName" = any(${names})
       order by l."publishedAt" desc
     `) as Lecture[];
+  }
+
+  async createRequest(id: string) {
+    try {
+      await this.prisma.request.create({
+        data: { id },
+      });
+      return;
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        return;
+      }
+      throw error;
+    }
   }
 }
 

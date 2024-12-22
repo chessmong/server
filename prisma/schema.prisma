@@ -26,3 +26,7 @@ model Position {
   @@id([id, fen])
   @@index([fen])
 }
+
+model Request {
+  id String @id
+}

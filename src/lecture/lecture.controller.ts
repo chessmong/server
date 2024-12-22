@@ -15,7 +15,12 @@ import {
   ApiQuery,
 } from '@nestjs/swagger';
 import { LectureService } from './lecture.service';
-import { CheckDto, CreateLectureDto, GetLectureDto } from './dto/request';
+import {
+  CheckDto,
+  CreateLectureDto,
+  GetLectureDto,
+  UploadDto,
+} from './dto/request';
 import { LectureDto } from './dto/response';
 import { JwtGuard } from 'src/common/guard';
 
@@ -80,5 +85,14 @@ export class LectureController {
       return this.lectureService.getLecturesByChannelNames(fen, channelNames);
     }
     return this.lectureService.getLectures(fen);
+  }
+
+  @ApiBearerAuth()
+  @ApiOperation({ summary: '업로드 요청' })
+  @ApiResponse({ status: 201, description: '성공' })
+  @Post('upload-request')
+  async uploadRequest(@Body() { link }: UploadDto) {
+    await this.lectureService.uploadRequest(link);
+    return;
   }
 }

@@ -102,6 +102,12 @@ export class LectureService {
       };
     });
   }
+
+  async uploadRequest(link: string) {
+    const id = this.parseId(link);
+    await this.lectureRepository.createRequest(id);
+    return;
+  }
 }
 
 export type YoutubeResponse = {
