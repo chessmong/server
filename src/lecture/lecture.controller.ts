@@ -87,7 +87,6 @@ export class LectureController {
     return this.lectureService.getLectures(fen);
   }
 
-  @ApiBearerAuth()
   @ApiOperation({ summary: '업로드 요청' })
   @ApiResponse({ status: 201, description: '성공' })
   @Post('upload-request')
