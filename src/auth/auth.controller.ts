@@ -31,7 +31,7 @@ export class AuthController {
     return this.authService.authenticate(code);
   }
 
-  @ApiOperation({ summary: '토큰 검증' })
+  @ApiOperation({ summary: '토큰 검증t' })
   @ApiBearerAuth()
   @Get('test')
   @UseGuards(JwtGuard)
