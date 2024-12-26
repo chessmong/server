@@ -22,4 +22,4 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: refresh auto scaling group
-        run: aws autoscaling start-instance-refresh --auto-scaling-group-name chessmong --preferences InstanceWarmup=300,SkipMatching=true
+        run: aws autoscaling start-instance-refresh --auto-scaling-group-name chessmong --preferences InstanceWarmup=300,SkipMatching=false
