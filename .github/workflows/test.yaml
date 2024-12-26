@@ -33,4 +33,4 @@ jobs:
           JWT_EXPIRES_IN: 1d
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         run: |
-          npm run test
+          npm run test:e2e
