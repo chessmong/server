@@ -14,7 +14,8 @@
 ## 활성사용자 300명 돌파
 ~서비스 출시 3일차부터 집계시작되었습니다ㅠㅠ~
 
-![image](https://github.com/user-attachments/assets/598dc8c2-8ba7-41a4-b6f1-45e539649b68)
+![image](https://github.com/user-attachments/assets/f837a280-1593-4e89-8607-94bfa2207f5c)
+
 
 ## 체스 초보자들을 위한 오프닝 강의 검색 사이트
 
