@@ -11,10 +11,11 @@
 ![image](https://github.com/user-attachments/assets/8dbaaebc-3208-4386-8324-c28c205d5863)
 
 
-## 활성사용자 300명 돌파
+## 활성사용자 400명 돌파
 ~서비스 출시 3일차부터 집계시작되었습니다ㅠㅠ~
 
-![image](https://github.com/user-attachments/assets/f837a280-1593-4e89-8607-94bfa2207f5c)
+![image](https://github.com/user-attachments/assets/daab16a8-6af1-46ad-87d4-6bf495bd39a7)
+
 
 
 ## 체스 초보자들을 위한 오프닝 강의 검색 사이트
