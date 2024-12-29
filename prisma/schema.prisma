@@ -30,3 +30,8 @@ model Position {
 model Request {
   id String @id
 }
+
+model Sponsor {
+  name   String @id
+  amount Int
+}
