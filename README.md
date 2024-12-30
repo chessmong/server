@@ -7,8 +7,7 @@
 
 ![2024-12-3018 27 26-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/05719023-1d44-4781-83ee-f1bb03259115)
 
-
-
+![image](https://github.com/user-attachments/assets/8edf2af4-b3be-44ce-b200-cb78afa46e99)![image](https://github.com/user-attachments/assets/a11b1691-b8e5-416e-81f7-5e850263b913)
 
 ## ♟️ 서비스 출시 직후 뜨거운 반응!!
 
