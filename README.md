@@ -22,7 +22,7 @@
 
 👉 [**구경하러 가기**](https://chessmong.com/)
 
-![image](https://github.com/user-attachments/assets/688f512a-7db4-4791-9ff9-907c5547302d)
+![2024-12-3018 27 26-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/05719023-1d44-4781-83ee-f1bb03259115)
 
 ## Architecture
 
