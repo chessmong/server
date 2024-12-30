@@ -12,9 +12,9 @@
 
 
 ## 활성사용자 400명 돌파
-~서비스 출시 3일차부터 집계시작되었습니다ㅠㅠ~
 
-![image](https://github.com/user-attachments/assets/daab16a8-6af1-46ad-87d4-6bf495bd39a7)
+![image](https://github.com/user-attachments/assets/7245c256-d9a2-438c-98c9-9f9aa3fac875)
+
 
 
 
@@ -31,3 +31,21 @@
 #### Redis 그만! 이제 백엔드도 CDN 캐싱 적용
 
 ![image](https://github.com/user-attachments/assets/df66cd42-0636-40f2-ad89-846cd16cc683)
+
+캐싱 전
+
+![image](https://github.com/user-attachments/assets/d8d391a4-e4fa-4c11-a41e-36fd8c7105ad)
+
+캐싱 후 (DB서버에 가해지는 쿼리의 양을 14% 수준까지 감소시킴)
+
+![image](https://github.com/user-attachments/assets/239fff12-35da-4fcd-b9bc-47653916f6e8)
+
+캐싱 전
+
+![image](https://github.com/user-attachments/assets/24e3086f-1900-4717-88f0-3bdc1fe2e1d8)
+
+캐싱 후 (동일한 api로 테스트, 약 90퍼센트 성능 향상)
+
+![image](https://github.com/user-attachments/assets/23e1fd6b-308f-4c45-97c3-6bd8a757cb13)
+
+
