@@ -6,6 +6,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { AuthModule } from './auth/auth.module';
 import { LectureModule } from './lecture/lecture.module';
 import { SponsorModule } from './sponsor/sponsor.module';
+import { GlobalFilter } from './common/filter/global.filter';
+import { APP_FILTER } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -28,6 +30,6 @@ import { SponsorModule } from './sponsor/sponsor.module';
     LectureModule,
     SponsorModule,
   ],
-  providers: [globalPipe],
+  providers: [globalPipe, { provide: APP_FILTER, useClass: GlobalFilter }],
 })
 export class AppModule {}
