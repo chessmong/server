@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { SponsorService } from './sponsor.service';
 import { SponsorDto } from './dto/response';
@@ -18,5 +18,11 @@ export class SponsorController {
   @Get()
   async getMany(): Promise<SponsorDto[]> {
     return this.sponsorService.getMany();
+  }
+
+  @ApiOperation({ summary: 'invocate error' })
+  @Post('error')
+  async error() {
+    throw new Error('error');
   }
 }
