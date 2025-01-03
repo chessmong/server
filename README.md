@@ -52,3 +52,6 @@
 ![image](https://github.com/user-attachments/assets/23e1fd6b-308f-4c45-97c3-6bd8a757cb13)
 
 
+## Monitoring
+
+👉 [**서버 상태 대시보드**](https://cloudwatch.amazonaws.com/dashboard.html?dashboard=chessmong-server&context=eyJSIjoidXMtZWFzdC0xIiwiRCI6ImN3LWRiLTY3NjIwNjk0MjczNyIsIlUiOiJ1cy1lYXN0LTFfbVhtcFVyZ1haIiwiQyI6IjYwamoybXV2Y2I3dWdrNnZxZ2lkZ3FqZ3JsIiwiSSI6InVzLWVhc3QtMTphMDQ1Mzk2OC0wNjUxLTRkZDQtOGE3Ni0xNTY5ZDBiMDU1MzUiLCJNIjoiUHVibGljIn0=)
