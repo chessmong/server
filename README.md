@@ -29,7 +29,7 @@
 
 ## Architecture
 
-![image](https://github.com/user-attachments/assets/841a62bc-fce8-405f-95d5-50996c89af0d)
+![image](https://github.com/user-attachments/assets/fccdcb5c-8d9c-4d92-b207-c2ffca73a9b5)
 
 #### Redis 그만! 이제 백엔드도 CDN 캐싱 적용
 
