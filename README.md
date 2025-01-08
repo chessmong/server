@@ -22,10 +22,9 @@
 ![image](https://github.com/user-attachments/assets/8dbaaebc-3208-4386-8324-c28c205d5863)
 
 
-## ♟️ GA 활성사용자 500명 돌파
+## ♟️ GA 활성사용자 600명 돌파
 
-![image](https://github.com/user-attachments/assets/bb8d2451-c9fb-4229-acd2-fb8ef20a8053)
-
+![image](https://github.com/user-attachments/assets/fa47b540-7812-4b92-8a5d-07a549c6f4b7)
 
 ## Architecture
 
