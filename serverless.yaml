@@ -1,0 +1,21 @@
+service: chessmong
+
+plugins:
+
+provider:
+  name: aws
+  region: ap-northeast-2
+  runtime: nodejs20.x
+  role: arn:aws:iam::676206942737:role/chessmong-lambda
+
+
+functions:
+  api:
+    handler: dist/lambda.handler
+    events:
+      - http:
+          method: any
+          path: /{proxy+}
+          cors: true
+      
+    
