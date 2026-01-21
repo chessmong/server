@@ -17,7 +17,8 @@
 
 ## ♟️ 구독자 35만 유튜버의 샤라웃!!
 
-👉 [**유튜브 링크**](https://www.youtube.com/channel/UCFE9BolPlT2qtVFmJa9Y6gA/community?lb=UgkxFKxgJSwjFlqmPTEFhmWXKct7X-ql3teH)
+
+👉 [**유튜브 링크**](https://www.youtube.com/post/UgkxFKxgJSwjFlqmPTEFhmWXKct7X-ql3teH)
 
 ![image](https://github.com/user-attachments/assets/8dbaaebc-3208-4386-8324-c28c205d5863)
 
